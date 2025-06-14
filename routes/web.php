@@ -90,3 +90,4 @@ Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 Route::post('/cart/add/{id}', [CartController::class, 'requireLogin'])->name('cart.requireLogin');
 Route::post('/order', [OrderController::class, 'placeOrder'])->name('order.place');
 
+
