@@ -15,10 +15,9 @@ class Register1Test extends TestCase
     {
         // Gửi request POST để đăng ký
         $response = $this->post('/register', [
-            'name' => 'User X',
-            'email' => 'userx@gmail.com',
+            'name' => 'User Y',
+            'email' => 'usery@gmail.com',
             'password' => '112233',
-            'password_confirmation' => '112233',
         ]);
 
         // Kiểm tra người dùng được chuyển hướng đến trang đăng nhập

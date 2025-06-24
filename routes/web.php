@@ -84,7 +84,6 @@ Route::prefix('user')->group(function () {
 
 });
 Route::delete('/cart/remove/{cartId}', [CartController::class, 'removeFromCart'])->name('cart.remove');
-
 Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show'); 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 Route::post('/cart/add/{id}', [CartController::class, 'requireLogin'])->name('cart.requireLogin');

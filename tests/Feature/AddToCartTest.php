@@ -2,39 +2,35 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Book;
 
 class AddToCartTest extends TestCase
 {
-    
-
-    public function test_user_can_add_book_to_cart()
+    public function test_user17_can_add_book_to_cart()
     {
-        $user = \App\Models\User::create([
-            'name' => 'User 15',
-            'email' => 'user15@gmail.com',
-            'password' => bcrypt('password123'),
-        ]);
-        
+        // Tìm user1 đã tồn tại
+        $user = User::where('email', 'user17@gmail.com')->first();
+        $this->assertNotNull($user, 'User17 phải tồn tại.');
 
-        $this->actingAs($user); // Đăng nhập
+        // Đăng nhập
+        $this->actingAs($user);
 
+        // Tìm sách Hoàng tử bé
         $book = Book::where('title', 'Hoàng tử bé')->first();
-        // Gửi request thêm vào giỏ (giả sử route là /cart/add/{id})
-        $response = $this->post('user/cart/add/' . $book->id);
+        $this->assertNotNull($book, '"Hoàng tử bé" phải tồn tại');
 
-        $response->assertRedirect(); // hoặc kiểm tra status tùy flow app
+        // Thêm sách vào giỏ
+        $response = $this->post('user/cart/add/' . $book->id, ['quantity' => 0]);
+        $response->assertRedirect(); 
 
-
-        // Mở trang giỏ hàng và kiểm tra
+        // Mở trang giỏ hàng
         $cartPage = $this->get('user/cart');
 
         $cartPage->assertStatus(200);
         $cartPage->assertSee('Hoàng tử bé');
-        $cartPage->assertSee('1'); // số lượng mặc định
-        $cartPage->assertSee('120.000 VNĐ'); // giá
+        $cartPage->assertSee('1'); 
+        $cartPage->assertSee('120.000 VNĐ'); 
     }
 }

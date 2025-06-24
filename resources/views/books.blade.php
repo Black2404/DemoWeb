@@ -16,6 +16,9 @@
         <button class="btn1" type="submit">Tìm kiếm</button>
     </form>
     <div class="book-container">
+        @if ($books->isEmpty())
+        <p>Không tìm thấy sách</p>
+        @else
         @foreach ($books as $book)
             <div class="book">
                 <img src="{{ asset('images/' . $book->image) }}" alt="{{ $book->title }}">
@@ -25,6 +28,7 @@
 
             </div>
         @endforeach
+        @endif
     </div>
     <div class="pagination">
         {{ $books->links() }}

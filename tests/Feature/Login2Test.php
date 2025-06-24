@@ -13,17 +13,11 @@ class Login2Test extends TestCase
 
     public function test_reload_login_page_when_password_is_wrong()
     {
-        // Tạo sẵn user
-        $user = User::create([
-            'name' => 'User X',
-            'email' => 'userx@gmail.com',
-            'password' => bcrypt('112233'),
-        ]);
 
         // Gửi POST request với mật khẩu sai
         $response = $this->from('/login')->post('/login', [
             'email' => 'userx@gmail.com',
-            'password' => '123123',
+            'password' => bcrypt('123123'),
         ]);
 
         // Hệ thống redirect lại trang login
